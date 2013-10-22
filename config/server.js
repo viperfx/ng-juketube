@@ -29,5 +29,57 @@ module.exports = {
         {title: 'Treasure Island', author: 'Stephenson'}
       ]);
     });
+  },
+  modifyHttpServer: function(server) {
+    io = require('socket.io').listen(server);
+    // var appState = {'roomID':[upcoming, history, youtube]}
+    var appStateDefault =  [[
+    {id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
+    {id: '45YSGFctLws', title: 'Shout Out Louds - Illusions'},
+    {id: 'ktoaj1IpTbw', title: 'CHVRCHES - Gun'},
+    {id: 'FgAJWQCC7L0', title: 'Stardust Music Sounds Better With You (High Quality)'},
+    {id: '8Zh0tY2NfLs', title: 'N.E.R.D. ft. Nelly Furtado - Hot N\' Fun (Boys Noize Remix) HQ'},
+    {id: 'zwJPcRtbzDk', title: 'Daft Punk - Human After All (SebastiAn Remix)'},
+    {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
+    {id: 'fTK4XTvZWmk', title: 'Housse De Racket ☁☀☁ Apocalypso'}
+  ]
+                            ,[
+                                {id: 'XKa7Ywiv734', title: 'Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
+                              ],{
+                                ready: false,
+                                player: null,
+                                playerId: null,
+                                videoId: null,
+                                videoTitle: null,
+                                // playerHeight: '30',
+                                playerHeight: '360',
+                                playerWidth: '640',
+                                state: 'stopped'
+                              }];
+    var appState = {}
+    io.sockets.on('connection', function(socket) {
+      socket.emit('hello', { hello: 'world' });
+      socket.on('createParty', function(room) {
+          appState[room] = appStateDefault;
+          socket.join(room);
+          socket.broadcast.to(room).emit('onPartyCreated', appState[room]);
+      });
+
+      socket.on('joinParty', function(room) {
+          socket.broadcast.emit('onJoinParty', room);
+          socket.join(room);
+          socket.broadcast.to(room).emit('onPartyJoined', appState[room]);
+          socket.emit('onPartyConnect', appState[room]);
+
+      });
+
+      socket.on('moveNote', function(data){
+          socket.broadcast.emit('onNoteMoved', data);
+      });
+
+      socket.on('deleteNote', function(data){
+          socket.broadcast.emit('onNoteDeleted', data);
+      });
+    });
   }
 };

@@ -7,4 +7,10 @@ angular.module("app", ["ngResource", "ngRoute"]).run(function($rootScope) {
   $rootScope.alert = function(thing) {
     alert(thing);
   };
+  var tag = document.createElement('script');
+  tag.src = "http://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}).config( function ($httpProvider) {
+  delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });
