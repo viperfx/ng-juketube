@@ -1,4 +1,4 @@
-angular.module("app").controller("VideosController", function ($scope, $http, $log, VideosService, socket) {
+angular.module("app").controller("VideosController", function ($scope, $http, $log, VideosService, socket, $rootScope) {
 
     // init();
 
@@ -7,8 +7,14 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
     $scope.results = VideosService.getResults();
     $scope.upcoming = VideosService.getUpcoming();
     $scope.history = VideosService.getHistory();
-    // $scope.playlist = true;
+    $scope.playlist = true;
     $scope.connected = false;
+
+    $scope.$watch('upcoming', function(delta){
+      console.info("watcher %O", delta);
+      // do stuff here
+      // newValues contains the new values of the observed collection array
+    });
     socket.on('onPartyConnect', function (data) {
         VideosService.setState(data);
         $scope.youtube = VideosService.getYoutube();
@@ -17,13 +23,24 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
         $scope.history = VideosService.getHistory();
     });
 
-    socket.on('onPartyCreated', function (room) {
+    socket.on('onPartyCreated', function (data) {
         $scope.connected = true;
-        $scope.room = room;
+        $scope.room = data.room;
+        $scope.isHost = true;
+    //     VideosService.setState(data.state);
+    //     $scope.youtube = VideosService.getYoutube();
+    //     $scope.upcoming = VideosService.getUpcoming();
+    //     $scope.history = VideosService.getHistory();
     });
     socket.on('onPartyJoined', function (data) {
         console.log("new guest joined");
         console.log(data);
+    });
+    socket.on('onPlayerAction', function(action) {
+        if($scope.isHost){
+          $rootScope.YTplayer.playVideo();
+          console.log("host recieved play action")
+        };
     });
     $scope.connect = function(room) {
         $scope.connected= true;
@@ -36,7 +53,12 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
         }
     }
     $scope.playVid = function() {
-        $scope.youtube.player.playVideo();
+        if ($scope.isHost) {
+          $scope.YTplayer.playVideo();
+        }else{
+          socket.emit('playerAction', {'room':$scope.room, 'action':'play'});
+        }
+
     }
     $scope.launch = function (id, title) {
       VideosService.launchPlayer(id, title);
@@ -53,6 +75,7 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
 
     $scope.delete = function (list, id) {
       VideosService.deleteVideo(list, id);
+
     };
 
     $scope.search = function () {

@@ -1,11 +1,9 @@
 angular.module("app").service("VideosService", ['$window', '$rootScope', '$log', 'socket', function ($window, $rootScope, $log, socket) {
 
   var service = this;
-
+  $rootScope.YTplayer = null;
   var youtube = {
     ready: false,
-    player: null,
-    playerId: null,
     videoId: null,
     videoTitle: null,
     playerHeight: '30',
@@ -24,22 +22,25 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
     {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
     {id: 'fTK4XTvZWmk', title: 'Housse De Racket ☁☀☁ Apocalypso'}
   ];
-  var upcoming = [];
+  // var upcoming = [{id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'}];
   var history = [
-    {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
+    {id: 'XKa7Ywiv734', title: 'Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
   ];
   // var history = [];
+
   $window.onYouTubeIframeAPIReady = function () {
     $log.info('Youtube API is ready');
-    youtube.ready = true;
-    service.bindPlayer('placeholder');
-    service.loadPlayer();
-    $rootScope.$apply();
+    socket.on('onPartyCreated', function (data) {
+      youtube.ready = true;
+      service.loadPlayer();
+      // $rootScope.$apply();
+    });
   };
+
 
   function onYoutubeReady (event) {
     $log.info('YouTube Player is ready');
-    youtube.player.cueVideoById(history[0].id);
+    $rootScope.YTplayer.cueVideoById(history[0].id);
     youtube.videoId = history[0].id;
     youtube.videoTitle = history[0].title;
   }
@@ -57,15 +58,9 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
     }
     $rootScope.$apply();
   }
-
-  this.bindPlayer = function (elementId) {
-    $log.info('Binding to ' + elementId);
-    youtube.playerId = elementId;
-  };
-
   this.createPlayer = function () {
-    $log.info('Creating a new Youtube player for DOM id ' + youtube.playerId + ' and video ' + youtube.videoId);
-    return new YT.Player(youtube.playerId, {
+    $log.info('Creating a new Youtube player for DOM id placeholder'+ 'and video ' + youtube.videoId);
+    return new YT.Player('placeholder', {
       height: youtube.playerHeight,
       width: youtube.playerWidth,
       playerVars: {
@@ -81,16 +76,16 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
   };
 
   this.loadPlayer = function () {
-    if (youtube.ready && youtube.playerId) {
-      if (youtube.player) {
-        youtube.player.destroy();
+    if (youtube.ready) {
+      if ($rootScope.YTplayer) {
+        $rootScope.YTplayer.destroy();
       }
-        youtube.player = service.createPlayer();
+      $rootScope.YTplayer = service.createPlayer();
     }
   };
 
   this.launchPlayer = function (id, title) {
-    youtube.player.loadVideoById(id);
+    $rootScope.YTplayer.loadVideoById(id);
     youtube.videoId = id;
     youtube.videoTitle = title;
     return youtube;
@@ -150,11 +145,14 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
   this.getHistory = function () {
     return history;
   };
-
   this.setState = function (data) {
     upcoming = data[0];
     history = data[1];
-    youtube.player.destroy();
-    youtube.player = service.createPlayer();
-  }
+    youtube = data[2];
+    youtube.videoId = history[0].id;
+    youtube.videoTitle = history[0].title;
+    // YTplayer.destroy();
+    // YTplayer = service.createPlayer();
+  };
+
 }]);

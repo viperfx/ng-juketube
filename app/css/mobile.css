@@ -53,7 +53,7 @@ nav{ float: right; line-height: 40px; text-align: center; width: 240px;}
 
 #player{ background: black; display:none;}
 #playerControls{ background: black; height:30px;}
-#playerControls a{ background: #333; height: 30px; line-height: 30px; text-align: center; width: 100%; color:white;}
+#playerControls a{ background: #333; height: 30px; line-height: 30px; text-align: center; width: 100%; color:#666;}
 #playlist{ background: #22242a; color: #727785; font-size: 16px; height:650px; overflow-x: hidden; top: 110px; width: 640px;}
 #current{ color: white; font-size: 20px; padding: 20px;}
 #playlist ol, #playlist li{ cursor: pointer;}
@@ -130,19 +130,18 @@ footer a:hover{ color: #444;}
     padding:0px 5px;
     color: white;
 }
-/*@media only screen and (min-device-width : 320px) and (max-device-width : 500px) {
-    body { width:320px; margin:0;}
-    body, input{ font: 16px/1 'Gotham Book', Arial, sans-serif;}
-    #search { width:250px;}
-    #query {width:280px;}
-    .connect-modal {
-        display: block;
-        position: absolute;
-        left: 35%;
-        top: 25%;
-        padding: 15px;
-        border: 2px solid black;
-        background-color: #ffffff;
-        z-index: 100;
-    }
-}*/
+body { width:320px; margin:0;}
+body, input{ font: 16px/1 'Gotham Book', Arial, sans-serif;}
+#search { width:250px;}
+#query {width:280px;}
+.connect-modal {
+    display: block;
+    position: absolute;
+    left: 35%;
+    top: 25%;
+    padding: 15px;
+    border: 2px solid black;
+    background-color: #ffffff;
+    z-index: 100;
+}
+

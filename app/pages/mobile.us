@@ -3,14 +3,14 @@
   <head>
     <title><%= pkg.name %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/app.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="/css/mobile.css" media="all" />
   </head>
   <body data-ng-controller="VideosController">
     <div class="fade" data-ng-hide="connected"></div>
     <div class="connect-modal" data-ng-hide="connected">
       <div class="container">
       <h2>Join or Host a room</h2>
-      <input class="input" name="room" type="text" placeholder="Room Name" data-ng-model="room">
+      <input class="input" name="room" type="text" placeholder="Room ID" data-ng-model="room">
       <input class="btn" type="submit" ng-click="connect(room)" value="Join">
       </br>
       </br>
@@ -40,7 +40,7 @@
       <div id="placeholder"></div>
     </div>
     <div id="playerControls">
-      <a data-ng-click="playVid()" href="#">Play/Pause</a>
+      <a data-ng-click="playVid()" href="#">Play</a>
       <a data-ng-click="playVid()" href="#">Stop</a>
       <a data-ng-click="playVid()" href="#">Next</a>
       <a data-ng-click="playVid()" href="#">Previous</a>

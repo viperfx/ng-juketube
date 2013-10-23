@@ -47,8 +47,6 @@ module.exports = {
                                 {id: 'XKa7Ywiv734', title: 'Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
                               ],{
                                 ready: false,
-                                player: null,
-                                playerId: null,
                                 videoId: null,
                                 videoTitle: null,
                                 // playerHeight: '30',
@@ -62,7 +60,7 @@ module.exports = {
       socket.on('createParty', function(room) {
           appState[room] = appStateDefault;
           socket.join(room);
-          socket.broadcast.to(room).emit('onPartyCreated', appState[room]);
+          socket.emit('onPartyCreated', {'room':room, 'state':appState[room]});
       });
 
       socket.on('joinParty', function(room) {
@@ -73,12 +71,13 @@ module.exports = {
 
       });
 
-      socket.on('moveNote', function(data){
-          socket.broadcast.emit('onNoteMoved', data);
+      socket.on('syncState', function(room, data){
+          appState[room] = data;
+          socket.broadcast.to(room).emit('onSyncState', data);
       });
 
-      socket.on('deleteNote', function(data){
-          socket.broadcast.emit('onNoteDeleted', data);
+      socket.on('playerAction', function(data){
+          socket.broadcast.to(data.room).emit('onPlayerAction', data.action);
       });
     });
   }

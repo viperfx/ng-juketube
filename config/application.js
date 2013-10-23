@@ -73,6 +73,10 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
     css: {
       src: ["<%= files.less.generatedVendor %>", "<%= files.sass.generatedVendor %>", "<%= files.css.vendor %>", "<%= files.less.generatedApp %>", "<%= files.sass.generatedApp %>", "<%= files.css.app %>"],
       dest: "<%= files.css.concatenated %>"
+    },
+    mobile: {
+      src: ["<%= files.mobile.vendor %>", "<%= files.mobile.app %>"],
+      dest: "<%= files.mobile.concatenated %>"
     }
   },
 
@@ -103,6 +107,10 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
     css: {
       files: ["<%= files.css.vendor %>", "<%= files.css.app %>"],
       tasks: ["concat_sourcemap:css"]
+    },
+    mobile: {
+      files: ["<%= files.mobile.vendor %>", "<%= files.mobile.app %>"],
+      tasks: ["concat_sourcemap:mobile"]
     },
     less: {
       files: ["<%= files.less.vendor %>", "<%= files.less.app %>"],

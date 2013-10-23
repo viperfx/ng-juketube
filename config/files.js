@@ -26,7 +26,18 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('files', {
       "app/js/**/*.js"
     ]
   },
-
+ css: {
+    vendor: "vendor/css/**/*.css",
+    app: "app/css/style.css",
+    concatenated: "generated/css/app.css",
+    minified: "dist/css/app.css"
+  },
+  mobile: {
+    vendor: "vendor/css/**/*.css",
+    app: "app/css/mobile.css",
+    concatenated: "generated/css/mobile.css",
+    minified: "dist/css/mobile.css"
+  },
   less: {
     compile: {
       options: {
