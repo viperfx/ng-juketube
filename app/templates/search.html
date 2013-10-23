@@ -1,0 +1,8 @@
+<div id="results">
+  <div class="video" data-ng-repeat="video in results" data-ng-click="queue(video.id, video.title)">
+    <img class="video-image" data-ng-src="{{ video.thumbnail }}">
+    <p class="video-title">{{ video.title }}</p>
+    <p class="video-author">{{ video.author }}</p>
+    <p class="video-description">{{ video.description }}</p>
+  </div>
+</div>

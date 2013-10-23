@@ -15,9 +15,11 @@
 
 /*html{ }*/
 body, input{ font: 20px/1 'Gotham Book', Arial, sans-serif;}
-
+ol, ul{ list-style: none;}
+#player{ background: black; display:none;}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td{ font-style: normal; font-weight: normal; margin: 0; padding: 0;}
 .connect-modal {
-    display: none; /* ensures it’s invisible until it’s called */
+    display: block; /* ensures it’s invisible until it’s called */
     position: absolute; /* makes the div go into a position that’s absolute to the browser viewing area */
     left: 35%; /* positions the div half way horizontally */
     top: 25%; /* positions the div half way vertically */
@@ -42,7 +44,7 @@ body, input{ font: 20px/1 'Gotham Book', Arial, sans-serif;}
     border-radius:3px;
 }
 .fade {
-    display: none;  /* ensures it’s invisible until it’s called */
+    display: block;  /* ensures it’s invisible until it’s called */
     position: absolute;  /* makes the div go into a position that’s absolute to the browser viewing area */
     left: 0%; /* makes the div span all the way across the viewing area */
     top: 0%; /* makes the div span all the way across the viewing area */
@@ -54,14 +56,7 @@ body, input{ font: 20px/1 'Gotham Book', Arial, sans-serif;}
     height: 100%;
     z-index: 90; /* makes the div the second most top layer, so it’ll lay on top of everything else EXCEPT for divs with a higher z-index (meaning the #overlay ruleset) */
 }
-.move-wrap {
-    float:left;
-    padding: 10px 10px;
-}
-.move-wrap span{
-    padding:0px 5px;
-    color: white;
-}
+
 html, body {
     padding: 0;
     margin: 0;
@@ -82,7 +77,8 @@ html, body {
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    background: #eee url(../img/shattered.png) repeat top center;
+    background-color: #22242a;
+    /*background: #eee url(../img/shattered.png) repeat top center;*/
     }
 
 .mobile-nav {
@@ -108,15 +104,15 @@ a:hover {
     background-color:#df1f1f;
 }
 .mobile-footer {
-    background-color: #BBB;
+    /*background-color: #BBB;*/
+    background-color: #22242a;
+    border:1px solid #BBB;
+    border-width:1px 0 0 0;
     }
 
-.mobile-content {
-    background-color: #F1F1F1;
-    }
 
 .mobile-nav {
-    background-color: #DDD;
+    background-color: #df1f1f;
     box-shadow: inset -.0625em 0 .625em rgba(0,0,0,.6);
     }
 
@@ -126,15 +122,28 @@ a:hover {
     }
 
 .search-form input {
-    width: 90%;
-    padding: .3125em .3125em;
-    border-color: #666;
-    font-size: 14px;
+    background: #ac0809;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    padding: 5px 15px;
+    width: 85%;
+    margin-bottom:10px;
     }
-
+.search-form input:focus {
+    outline:0;
+}
+::-webkit-input-placeholder{ color: #df1f1f;}
+:-moz-placeholder{ color: #df1f1f;}
+::-moz-placeholder{ color: #df1f1f;}
+:-ms-input-placeholder{ color: #df1f1f;}
 .main-nav {
     padding-left: 0;
     list-style: none;
+    clear:both;
     border-bottom: 1px solid rgba(255,255,255,.2);
     border-top: 1px solid rgba(0,0,0,.05);
     }
@@ -151,6 +160,7 @@ a:hover {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -moz-tap-highlight-color: rgba(0, 0, 0, 0);
     tap-highlight-color: rgba(0, 0, 0, 0);
+    color: white;
     }
 
 .mobile-nav-toggle {
@@ -175,7 +185,10 @@ a:hover {
 .mobile-footer-inner {
     padding: 0 .625em;
     }
+.mobile-content-inner {
+    padding:0;
 
+}
 .mobile-header-inner {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -188,7 +201,7 @@ a:hover {
     color: white;
     float:left;
     }
-.mobile-header-inner small {
+.mobile-footer small {
     color: #ECF0F1;
     text-transform:uppercase;
 }
@@ -205,16 +218,107 @@ a:hover {
     }
 
 @media (max-width: 480px) {
-
-    .github-ribbon {
-        width: 99px;
-        height: 99px;
-        }
-
     .mobile-header-inner strong {
         font-size: 1.1em;
         }
-
+/*    .playerControls .main {
+        height:20px;
+    }
+    .playerControls .next, .playerControls .previous {
+        height: 20px;
+        background-size: 20px;
+        width: 15px;
+        margin: 1px 0;
+    }*/
+    .connect-modal {
+    display: block; /* ensures it’s invisible until it’s called */
+    position: absolute; /* makes the div go into a position that’s absolute to the browser viewing area */
+    left: 20px; /* positions the div half way horizontally */
+    top: 100px; /* positions the div half way vertically */
+    padding: 5px;
+    border: 2px solid black;
+    background-color: #ffffff;
+    width: 250px;
+    /*height: 50%;*/
+    z-index: 100; /* makes the div the top layer, so it’ll lay on top of the other content */
+    }
+    .connect-modal .btn {
+        padding:4px;
+        border-radius:2px;
+        border:0;
+        color:white;
+        background-color:#E74C3C;
+    }
+    .connect-modal .input {
+        border-radius:3px;
+        width:100px;
+    }
 }
 
 
+.playerControls .main{
+    width: 75px;
+    height: 12px;
+    margin: 9px 5px 9px 0px;
+    float: left;
+}
+.playerControls .main div {
+    float:left;
+    cursor:pointer;
+}
+.playerControls .next, .playerControls .previous {
+    height: 10px;
+    width: 15px;
+    margin: 1px 0;
+}
+.playerControls .pause, .playerControls .play {
+    width: 8px;
+    height: 12px;
+    margin: 0 15px;
+}
+.playerControls .next {background: rgba(0, 0, 0, 0) url(../img/player-next.png) no-repeat center center scroll;}
+.playerControls .previous {background: rgba(0, 0, 0, 0) url(../img/player-previous.png) no-repeat center center scroll;}
+.playerControls .pause {background: rgba(0, 0, 0, 0) url(../img/player-pause.png) no-repeat center center scroll;}
+.playerControls .play {background: rgba(0, 0, 0, 0) url(../img/player-play.png) no-repeat center center scroll;}
+#playlist {
+    background: #22242a;
+    color: #727785;
+    font-size: 16px;
+    /*height:650px;*/
+    overflow-x: hidden;
+    /*top: 110px;*/
+    /*width: 640px;*/
+}
+#current{ color: white; font-size: 20px; padding: 20px;}
+#playlist ol, #playlist li{ cursor: pointer;}
+#playlist ol{ border-bottom: 1px solid #33363f; overflow-x: hidden;padding-left:0px;}
+#playlist li{ border-top: 1px solid #33363f; cursor: pointer;}
+#playlist li p {
+     margin-top:0;margin-bottom:0;
+}
+#playlist li .move-wrap {
+    float:left;
+    padding: 10px 10px;
+    /*margin-top: 16px;*/
+    /*margin-bottom: 16px;*/
+}
+#playlist li .move-wrap span{
+    padding:0px 5px;
+    color: white;
+}
+#history li{ color: #33522d;}
+.item-title{ margin-right: 80px;
+padding: 10px 5px;
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;}
+.item-title:hover{ background: #1171A2; color: white;}
+.item-delete{ color: #ac0809; float: right; text-align: center; padding: 10px 0; width: 80px;}
+.item-delete:hover{ background: #ac0809; color: white;}
+.video{ cursor: pointer; min-height: 90px; padding: 10px; padding-left: 140px; position: relative;}
+/*.video:nth-child(2n-1){ background: white;}*/
+.video-image{ float: left; left: 10px; position: absolute; top: 10px;}
+.video-title{ padding-top: 5px;}
+.video-author{ color: #df1f1f; font-size: 14px; padding: 5px 0;}
+.video-description{ color: #727785; font-size: 12px; line-height: 1.5;}
+.video:hover{ background: #22242a; color: white;}

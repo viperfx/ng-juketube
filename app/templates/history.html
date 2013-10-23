@@ -1,0 +1,9 @@
+<div id="playlist">
+  <p id="current">{{ youtube.videoTitle }}</p>
+  <ol id="history">
+    <li data-ng-repeat="video in history">
+      <p class="item-delete" data-ng-click="delete(history, video.id)">delete</p>
+      <p class="item-title" data-ng-click="queue(video.id, video.title)">{{video.title}}</p>
+    </li>
+  </ol>
+</div>

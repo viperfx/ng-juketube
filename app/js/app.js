@@ -1,4 +1,4 @@
-angular.module("app", ["ngResource", "ngRoute","ek.mobileFrame"]).run(function($rootScope) {
+angular.module("app", ["ek.mobileFrame"]).run(function($rootScope) {
   // adds some basic utilities to the $rootScope for debugging purposes
   $rootScope.log = function(thing) {
     console.log(thing);
@@ -12,9 +12,10 @@ angular.module("app", ["ngResource", "ngRoute","ek.mobileFrame"]).run(function($
   var firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 }).config( ['$mobileFrameProvider', '$httpProvider', function ($mobileFrameProvider,$httpProvider ) {
-  delete $httpProvider.defaults.headers.common['X-Requested-With'];
+
   $mobileFrameProvider
             .setHeaderHeight(50)
             .setFooterHeight(30)
-            .setNavWidth(200);
+            .setNavWidth(250);
+  delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }]);

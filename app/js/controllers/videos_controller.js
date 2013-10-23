@@ -1,4 +1,4 @@
-angular.module("app").controller("VideosController", function ($scope, $http, $log, VideosService, socket, $rootScope) {
+angular.module("app").controller("VideosController", function ($scope, $http, $log, VideosService, socket, $rootScope, $location) {
 
     // init();
 
@@ -91,6 +91,8 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
       })
       .success( function (data) {
         VideosService.listResults(data);
+        $log.info(this.query.value);
+        $location.url('/search/');
         $log.info(data);
       })
       .error( function () {
