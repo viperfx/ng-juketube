@@ -7,10 +7,10 @@ angular.module("app").config(function($routeProvider, $locationProvider) {
     // controller: 'LoginController'
   });
 
-  $routeProvider.when('/', {
-    templateUrl: 'home.html'
-    // controller: 'HomeController'
-  });
+  // $routeProvider.when('/', {
+  //   templateUrl: 'home.html'
+  //   // controller: 'HomeController'
+  // });
 
   $routeProvider.when('/search/:query', {
     templateUrl: 'search.html'
@@ -27,6 +27,6 @@ angular.module("app").config(function($routeProvider, $locationProvider) {
     // }
   });
 
-  $routeProvider.otherwise({ redirectTo: '/' });
+  $routeProvider.otherwise({ redirectTo: '/upcoming' });
 
 });

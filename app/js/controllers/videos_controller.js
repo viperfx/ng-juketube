@@ -52,12 +52,21 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
             socket.emit('joinParty', room);
         }
     }
-    $scope.playVid = function() {
-        if ($scope.isHost) {
-          $scope.YTplayer.playVideo();
-        }else{
-          socket.emit('playerAction', {'room':$scope.room, 'action':'play'});
+    $scope.playerControl = function(action) {
+        if (action == 'play') {
+          if ($scope.isHost) {
+            $scope.YTplayer.playVideo();
+          }else{
+            socket.emit('playerAction', {'room':$scope.room, 'action':'play'});
+          }
+        } else if (action == 'pause') {
+          if ($scope.isHost) {
+            $scope.YTplayer.pauseVideo();
+          }else{
+            socket.emit('playerAction', {'room':$scope.room, 'action':'pause'});
+          }
         }
+
 
     }
     $scope.launch = function (id, title) {

@@ -2,17 +2,17 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
 
   var service = this;
   $rootScope.YTplayer = null;
+  var playerHeight = '30';
+  // playerHeight: '360',
+  var playerWidth = '640';
+  var ready = false;
   var youtube = {
-    ready: false,
     videoId: null,
     videoTitle: null,
-    playerHeight: '30',
-    // playerHeight: '360',
-    playerWidth: '640',
     state: 'stopped'
   };
   var results = [];
-  var upcoming = [
+  /*var upcoming = [
     {id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
     {id: '45YSGFctLws', title: 'Shout Out Louds - Illusions'},
     {id: 'ktoaj1IpTbw', title: 'CHVRCHES - Gun'},
@@ -21,17 +21,17 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
     {id: 'zwJPcRtbzDk', title: 'Daft Punk - Human After All (SebastiAn Remix)'},
     {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
     {id: 'fTK4XTvZWmk', title: 'Housse De Racket ☁☀☁ Apocalypso'}
-  ];
-  // var upcoming = [{id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'}];
+  ];*/
+  var upcoming = [];
   var history = [
-    {id: 'XKa7Ywiv734', title: 'Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
+   {id: 'h1UGJ-USaf4', title: 'Arrambam - Stylish Thamizhachi Official Full Song'}
   ];
   // var history = [];
 
   $window.onYouTubeIframeAPIReady = function () {
     $log.info('Youtube API is ready');
     socket.on('onPartyCreated', function (data) {
-      youtube.ready = true;
+      ready = true;
       service.loadPlayer();
       // $rootScope.$apply();
     });
@@ -61,8 +61,8 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
   this.createPlayer = function () {
     $log.info('Creating a new Youtube player for DOM id placeholder'+ 'and video ' + youtube.videoId);
     return new YT.Player('placeholder', {
-      height: youtube.playerHeight,
-      width: youtube.playerWidth,
+      height: playerHeight,
+      width: playerWidth,
       playerVars: {
         rel: 0,
         showinfo: 0,
@@ -76,7 +76,7 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
   };
 
   this.loadPlayer = function () {
-    if (youtube.ready) {
+    if (ready) {
       if ($rootScope.YTplayer) {
         $rootScope.YTplayer.destroy();
       }

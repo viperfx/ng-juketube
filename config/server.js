@@ -33,18 +33,16 @@ module.exports = {
   modifyHttpServer: function(server) {
     io = require('socket.io').listen(server);
     // var appState = {'roomID':[upcoming, history, youtube]}
-    var appStateDefault =  [[
-    {id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
-    {id: '45YSGFctLws', title: 'Shout Out Louds - Illusions'},
-    {id: 'ktoaj1IpTbw', title: 'CHVRCHES - Gun'},
-    {id: 'FgAJWQCC7L0', title: 'Stardust Music Sounds Better With You (High Quality)'},
-    {id: '8Zh0tY2NfLs', title: 'N.E.R.D. ft. Nelly Furtado - Hot N\' Fun (Boys Noize Remix) HQ'},
-    {id: 'zwJPcRtbzDk', title: 'Daft Punk - Human After All (SebastiAn Remix)'},
-    {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
-    {id: 'fTK4XTvZWmk', title: 'Housse De Racket ☁☀☁ Apocalypso'}
+    /*var appStateDefault =  [[
+    {id: 'kWbRdSiYgAY', title: 'Arrambam - En Fuse Pochu Official Full Song'},
+    {id: 'h1UGJ-USaf4', title: 'Arrambam - Stylish Thamizhachi Official Full Song'},
+    {id: 'mYSC8pviihY', title: 'Arrambam - Hare Rama Official Full Song'},
+    {id: '5vDn-M7FvZA', title: 'Vanakkam Chennai - Oh Penne Full Song'},
+    {id: 'LskTKRBJdJU', title: 'Hey Baby Official Full Song - Raja Rani'},
+    {id: 'OxfGcjC7aSs', title: 'Oodha Color Ribbon - Varutha Padatha Valibar sangam'}
   ]
                             ,[
-                                {id: 'XKa7Ywiv734', title: 'Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
+                                {id: 'K6A8W_SHdq8', title: 'Ethir Neechal'}
                               ],{
                                 ready: false,
                                 videoId: null,
@@ -53,7 +51,8 @@ module.exports = {
                                 playerHeight: '360',
                                 playerWidth: '640',
                                 state: 'stopped'
-                              }];
+                              }];*/
+    var appStateDefault = [[], [], { videoId: null,videoTitle: null,state:'stopped'}]
     var appState = {}
     io.sockets.on('connection', function(socket) {
       socket.emit('hello', { hello: 'world' });

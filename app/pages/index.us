@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/css/mobile.css" media="all" />
   </head>
-  <body data-ng-controller="VideosController">
+  <body data-ng-controller="VideosController" ng-init="youtube.videoTitle='Loading &hellip;'">
     <div class="fade" data-ng-hide="connected"></div>
     <div class="connect-modal" data-ng-hide="connected">
       <div class="container">
@@ -49,12 +49,12 @@
         <!-- main-content goes here -->
     </mobile-content>
     <mobile-footer>
-      <small><a id="play">{{ youtube.state }}</a></small>
+      <small>{{ youtube.state }}</small>
       <small class="playerControls">
         <div class="main">
           <div class="previous"></div>
-          <div class="play" data-ng-click="playVid()"></div>
-          <div class="pause" style="display: none;"></div>
+          <div class="play" data-ng-click="playerControl('play')" ng-show="youtube.state=='stopped' || youtube.state=='paused' || youtube.state=='ended'"></div>
+          <div class="pause" data-ng-click="playerControl('pause')" ng-show="youtube.state=='playing'"></div>
           <div class="next"></div>
         </div>
       </small>
