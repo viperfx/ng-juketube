@@ -6,7 +6,27 @@
     <link rel="stylesheet" type="text/css" href="/css/mobile.css" media="all" />
   </head>
   <body data-ng-controller="VideosController">
-    <div class="fade" data-ng-hide="connected"></div>
+    <mobile-frame>
+    <mobile-header>
+        <!-- top-bar-content goes here -->
+        <strong>JukeTube</strong><small><a id="play">{{ youtube.state }}</a></small>
+    </mobile-header>
+    <mobile-nav>
+        <!-- off-canvas-nav-content goes here -->
+        <form id="search" class="search-form" data-ng-submit="search()">
+          <input id="query" name="q" type="text" placeholder="Search YouTube" data-ng-model="query">
+          <!-- <input id="submit" type="image" src="img/search.png" alt="Search"> -->
+        </form>
+    </mobile-nav>
+    <mobile-content>
+        <!-- main-content goes here -->
+    </mobile-content>
+    <mobile-footer>
+        <!-- bottom-bar-content goes here -->
+        <small>Built with <a href="http://angularjs.org/">AngularJS</a>. Source code available on <a href="https://github.com/viperfx/juketube">GitHub</a></small>
+    </mobile-footer>
+</mobile-frame>
+   <!-- <div class="fade" data-ng-hide="connected"></div>
     <div class="connect-modal" data-ng-hide="connected">
       <div class="container">
       <h2>Join or Host a room</h2>
@@ -68,9 +88,9 @@
       </p>
     </div>
     <footer>
-      <!-- <em>Concept &amp; Design: <a href="http://jgthms.com">J. Thomas</a></em> -->
+       <em>Concept &amp; Design: <a href="http://jgthms.com">J. Thomas</a></em>
       Built with <a href="http://angularjs.org/">AngularJS</a>. Source code available on <a href="https://github.com/viperfx/juketube">GitHub</a>.
-    </footer>
+    </footer>-->
 
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/js/app.js"></script>
