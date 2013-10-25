@@ -65,7 +65,7 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
       service.archiveVideo(upcoming[0].id, upcoming[0].title);
       service.deleteVideo(upcoming, upcoming[0].id);
       socket.emit('syncState', {'room':$rootScope.room, 'state':[upcoming, history, youtube]});
-  }
+  };
 
   // this.previousVideo = function() {
   //     if ($rootScope.isHost){

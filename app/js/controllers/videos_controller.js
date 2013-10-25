@@ -39,28 +39,28 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
 
     });
     socket.on('onPlayerAction', function(data) {
-        $rootScope.log("I recieved play action "+data.action)
-        if (data.action == 'play') {
+        $rootScope.log("I recieved play action "+data.action);
+        if (data.action === 'play') {
           if($rootScope.isHost){
             $rootScope.YTplayer.playVideo();
-            $rootScope.log("host recieved play action")
+            $rootScope.log("host recieved play action");
           }else{
             $scope.youtube.state = 'playing';
           }
-        } else if (data.action == 'pause') {
+        } else if (data.action === 'pause') {
           if($rootScope.isHost){
             $rootScope.YTplayer.pauseVideo();
             $rootScope.log("host recieved pause action");
           }else{
             $scope.youtube.state = 'paused';
           }
-        } else if (data.action == 'next') {
+        } else if (data.action === 'next') {
           VideosService.nextVideo();
-        } else if (data.action == 'previous') {
+        } else if (data.action === 'previous') {
           VideosService.previousVideo();
-        } else if (data.action == 'launch') {
+        } else if (data.action === 'launch') {
           VideosService.launchPlayer(data.args[0], data.args[1]);
-        } else if (data.action == 'move') {
+        } else if (data.action === 'move') {
           $scope.upcoming.splice(data.args[1], 0, $scope.upcoming.splice(data.args[0], 1)[0]);
         }
     });
@@ -73,13 +73,13 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
             // join the room
             socket.emit('joinParty', room);
         }
-    }
+    };
     $scope.playerControl = function(action) {
         socket.emit('playerAction', {'room':$rootScope.room, 'action':action});
-    }
+    };
     $scope.move = function(current, moveto) {
         socket.emit('playerAction', {'room':$rootScope.room, 'action':'move', 'args':[current, moveto]});
-    }
+    };
     $scope.launch = function (id, title) {
       VideosService.launchPlayer(id, title);
       VideosService.archiveVideo(id, title);
