@@ -23,9 +23,6 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
     {id: 'fTK4XTvZWmk', title: 'Housse De Racket ☁☀☁ Apocalypso'}
   ];
   // var upcoming = [];
-/*  var history = [
-   {id: 'h1UGJ-USaf4', title: 'Arrambam - Stylish Thamizhachi Official Full Song'}
-  ];*/
   var history = [
     {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
   ];
