@@ -327,3 +327,21 @@ text-overflow: ellipsis;}
 .video-author{ color: #df1f1f; font-size: 14px; padding: 5px 0;}
 .video-description{ color: #727785; font-size: 12px; line-height: 1.5;}
 .video:hover{ background: #22242a; color: white;}
+
+.cg-notify-message {
+    position:fixed;
+    left:50%;
+    top:-50px;
+    z-index: 9999;
+
+    border:1px solid rgb(240, 195, 109);
+    background-color: rgb(249, 237, 190);
+    font-size: 13px;
+    font-weight: bold;
+    padding:2px 8px 2px 8px;
+
+    -webkit-transition: top 0.5s ease-out,opacity 0.5s ease-out 4s; /* 4 sec delay for longer message visibility */
+    -moz-transition: top 0.5s ease-out,opacity 0.5s ease-out 4s;
+    -o-transition: top 0.5s ease-out,opacity 0.5s ease-out 4s;
+    transition: top 0.5s ease-out,opacity 0.5s ease-out 4s;
+}

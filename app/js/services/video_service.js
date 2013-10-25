@@ -8,11 +8,11 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
   var ready = false;
   var youtube = {
     videoId: null,
-    videoTitle: null,
+    videoTitle: "test",
     state: 'stopped'
   };
   var results = [];
-  /*var upcoming = [
+  var upcoming = [
     {id: 'kRJuY6ZDLPo', title: 'La Roux - In for the Kill (Twelves Remix)'},
     {id: '45YSGFctLws', title: 'Shout Out Louds - Illusions'},
     {id: 'ktoaj1IpTbw', title: 'CHVRCHES - Gun'},
@@ -21,10 +21,13 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
     {id: 'zwJPcRtbzDk', title: 'Daft Punk - Human After All (SebastiAn Remix)'},
     {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
     {id: 'fTK4XTvZWmk', title: 'Housse De Racket ☁☀☁ Apocalypso'}
-  ];*/
-  var upcoming = [];
-  var history = [
+  ];
+  // var upcoming = [];
+/*  var history = [
    {id: 'h1UGJ-USaf4', title: 'Arrambam - Stylish Thamizhachi Official Full Song'}
+  ];*/
+  var history = [
+    {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
   ];
   // var history = [];
 
@@ -40,6 +43,7 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
 
   function onYoutubeReady (event) {
     $log.info('YouTube Player is ready');
+    // event.target.setVolume(0);
     $rootScope.YTplayer.cueVideoById(history[0].id);
     youtube.videoId = history[0].id;
     youtube.videoTitle = history[0].title;
@@ -52,12 +56,24 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
       youtube.state = 'paused';
     } else if (event.data === YT.PlayerState.ENDED) {
       youtube.state = 'ended';
-      service.launchPlayer(upcoming[0].id, upcoming[0].title);
-      service.archiveVideo(upcoming[0].id, upcoming[0].title);
-      service.deleteVideo(upcoming, upcoming[0].id);
+      service.nextVideo();
     }
     $rootScope.$apply();
   }
+  this.nextVideo = function() {
+      service.launchPlayer(upcoming[0].id, upcoming[0].title);
+      service.archiveVideo(upcoming[0].id, upcoming[0].title);
+      service.deleteVideo(upcoming, upcoming[0].id);
+      socket.emit('syncState', {'room':$rootScope.room, 'state':[upcoming, history, youtube]});
+  }
+
+  // this.previousVideo = function() {
+  //     if ($rootScope.isHost){
+  //       service.launchPlayer(history[1].id, upcoming[1].title);
+  //       service.reviveVideo();
+  //       socket.emit('syncState', {'room':$rootScope.room, 'state':[upcoming, history, youtube]});
+  //     }
+  // }
   this.createPlayer = function () {
     $log.info('Creating a new Youtube player for DOM id placeholder'+ 'and video ' + youtube.videoId);
     return new YT.Player('placeholder', {
@@ -85,7 +101,9 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
   };
 
   this.launchPlayer = function (id, title) {
-    $rootScope.YTplayer.loadVideoById(id);
+    if ($rootScope.isHost){
+      $rootScope.YTplayer.loadVideoById(id);
+    }
     youtube.videoId = id;
     youtube.videoTitle = title;
     return youtube;

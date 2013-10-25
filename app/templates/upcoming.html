@@ -4,8 +4,8 @@
       <ol id="upcoming" data-ng-show="playlist">
         <li data-ng-repeat="video in upcoming">
           <!-- <div class="move-wrap"> -->
-          <p class="item-move" data-ng-click="move('up')">&#x25B2;</p>
-          <p class="item-move" data-ng-click="move('down')">&#x25BC;</p>
+          <p class="item-move" data-ng-click="move($index, $index-1)" ng-hide="$first">&#x25B2;</p>
+          <p class="item-move" data-ng-click="move($index, $index+1)" ng-hide="$last">&#x25BC;</p>
         <!-- </div> -->
           <p class="item-delete" data-ng-click="delete(upcoming, video.id)">delete</p>
           <p class="item-title" data-ng-click="launch(video.id, video.title)">{{video.title}}</p>

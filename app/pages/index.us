@@ -6,6 +6,9 @@
     <link rel="stylesheet" type="text/css" href="/css/mobile.css" media="all" />
   </head>
   <body data-ng-controller="VideosController" ng-init="youtube.videoTitle='Loading &hellip;'">
+    <div id="player">
+      <div id="placeholder"></div>
+    </div>
     <div class="fade" data-ng-hide="connected"></div>
     <div class="connect-modal" data-ng-hide="connected">
       <div class="container">
@@ -25,9 +28,7 @@
     </mobile-header>
     <mobile-nav>
         <!-- off-canvas-nav-content goes here -->
-        <div id="player">
-      <div id="placeholder"></div>
-    </div>
+
         <form id="search" class="search-form" data-ng-submit="search()">
           <input id="query" name="q" type="search" placeholder="Search YouTube &hellip;" data-ng-model="query">
           <!-- <input id="submit" type="image" src="img/search.png" alt="Search"> -->
@@ -52,10 +53,10 @@
       <small>{{ youtube.state }}</small>
       <small class="playerControls">
         <div class="main">
-          <div class="previous"></div>
+          <!-- <div class="previous" data-ng-click="playerControl('previous')"></div> -->
           <div class="play" data-ng-click="playerControl('play')" ng-show="youtube.state=='stopped' || youtube.state=='paused' || youtube.state=='ended'"></div>
           <div class="pause" data-ng-click="playerControl('pause')" ng-show="youtube.state=='playing'"></div>
-          <div class="next"></div>
+          <div class="next" data-ng-click="playerControl('next')"></div>
         </div>
       </small>
     </mobile-footer>
@@ -128,7 +129,7 @@
        <em>Concept &amp; Design: <a href="http://jgthms.com">J. Thomas</a></em>
       Built with <a href="http://angularjs.org/">AngularJS</a>. Source code available on <a href="https://github.com/viperfx/juketube">GitHub</a>.
     </footer>-->
-
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/js/app.js"></script>
 

@@ -1,7 +1,8 @@
-angular.module("app", ["ek.mobileFrame"]).run(function($rootScope) {
+angular.module("app", ["ek.mobileFrame", "cgNotify"]).run(function($rootScope, notify) {
   // adds some basic utilities to the $rootScope for debugging purposes
   $rootScope.log = function(thing) {
     console.log(thing);
+    notify(thing);
   };
 
   $rootScope.alert = function(thing) {
@@ -11,8 +12,7 @@ angular.module("app", ["ek.mobileFrame"]).run(function($rootScope) {
   tag.src = "http://www.youtube.com/iframe_api";
   var firstScriptTag = document.getElementsByTagName('script')[0];
   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-}).config( ['$mobileFrameProvider', '$httpProvider', function ($mobileFrameProvider,$httpProvider ) {
-
+}).config( ['$mobileFrameProvider', '$httpProvider', function ($mobileFrameProvider,$httpProvider) {
   $mobileFrameProvider
             .setHeaderHeight(50)
             .setFooterHeight(30)

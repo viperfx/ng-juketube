@@ -52,31 +52,31 @@ module.exports = {
                                 playerWidth: '640',
                                 state: 'stopped'
                               }];*/
-    var appStateDefault = [[], [], { videoId: null,videoTitle: null,state:'stopped'}]
+    var appStateDefault = [[], [{id: 'h1UGJ-USaf4', title: 'Arrambam - Stylish Thamizhachi Official Full Song'}], { videoId: null,videoTitle: null,state:'stopped'}]
     var appState = {}
     io.sockets.on('connection', function(socket) {
       socket.emit('hello', { hello: 'world' });
-      socket.on('createParty', function(room) {
-          appState[room] = appStateDefault;
-          socket.join(room);
-          socket.emit('onPartyCreated', {'room':room, 'state':appState[room]});
+      socket.on('createParty', function(data) {
+          appState[data.room] = data.state;
+          socket.join(data.room);
+          socket.emit('onPartyCreated', {'room':data.room, 'state':appState[data.room]});
       });
 
       socket.on('joinParty', function(room) {
-          socket.broadcast.emit('onJoinParty', room);
           socket.join(room);
-          socket.broadcast.to(room).emit('onPartyJoined', appState[room]);
-          socket.emit('onPartyConnect', appState[room]);
-
+          socket.broadcast.to(room).emit('onPartyJoined', room);
       });
 
-      socket.on('syncState', function(room, data){
-          appState[room] = data;
-          socket.broadcast.to(room).emit('onSyncState', data);
+      socket.on('syncState', function(data){
+          appState[data.room] = data.state;
+          //send back to all clients in room except host
+          socket.broadcast.to(data.room).emit('onSyncState', appState[data.room]);
+          // socket.emit('onSyncState', appState[data.room]);
       });
 
       socket.on('playerAction', function(data){
-          socket.broadcast.to(data.room).emit('onPlayerAction', data.action);
+          socket.broadcast.to(data.room).emit('onPlayerAction', {'action':data.action, 'args':data.args});
+          socket.emit('onPlayerAction', {'action':data.action, 'args':data.args});
       });
     });
   }
