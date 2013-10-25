@@ -60,6 +60,7 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
     }
     $rootScope.$apply();
   }
+
   this.nextVideo = function() {
       service.launchPlayer(upcoming[0].id, upcoming[0].title);
       service.archiveVideo(upcoming[0].id, upcoming[0].title);

@@ -22,16 +22,11 @@
     </div>
     <mobile-frame>
     <mobile-header>
-        <!-- top-bar-content goes here -->
         <strong>JukeTube</strong><small>{{room}}</small>
-
     </mobile-header>
     <mobile-nav>
-        <!-- off-canvas-nav-content goes here -->
-
         <form id="search" class="search-form" data-ng-submit="search()">
           <input id="query" name="q" type="search" placeholder="Search YouTube &hellip;" data-ng-model="query">
-          <!-- <input id="submit" type="image" src="img/search.png" alt="Search"> -->
           </form>
           <ul class="main-nav">
             <li class="main-nav-item">
@@ -46,9 +41,7 @@
           </ul>
 
     </mobile-nav>
-    <mobile-content ng-view>
-        <!-- main-content goes here -->
-    </mobile-content>
+    <mobile-content ng-view></mobile-content>
     <mobile-footer>
       <small>{{ youtube.state }}</small>
       <small class="playerControls">
@@ -60,75 +53,8 @@
         </div>
       </small>
     </mobile-footer>
-    <!--<mobile-footer>
-        <small>Built with <a href="http://angularjs.org/">AngularJS</a>. Source code available on <a href="https://github.com/viperfx/juketube">GitHub</a></small>
-    </mobile-footer>-->
 </mobile-frame>
-   <!-- <div class="fade" data-ng-hide="connected"></div>
-    <div class="connect-modal" data-ng-hide="connected">
-      <div class="container">
-      <h2>Join or Host a room</h2>
-      <input class="input" name="room" type="text" placeholder="Room ID" data-ng-model="room">
-      <input class="btn" type="submit" ng-click="connect(room)" value="Join">
-      </br>
-      </br>
-      <input class="btn" type="submit" value="Host" data-ng-click="connect()">
-      </div>
-    </div>
-    <header>
-      <h1>Juke<strong>Tube</strong></h1>
-      <form id="search" data-ng-submit="search()">
-        <input id="query" name="q" type="text" placeholder="Search for a YouTube video" data-ng-model="query">
-        <input id="submit" type="image" src="img/search.png" alt="Search">
-      </form>
-      <nav>
-        <a id="play">{{ youtube.state }}</a>
-        <a id="pause">Pause</a>
-      </nav>
-    </header>
-    <div id="results">
-      <div class="video" data-ng-repeat="video in results" data-ng-click="queue(video.id, video.title)">
-        <img class="video-image" data-ng-src="{{ video.thumbnail }}">
-        <p class="video-title">{{ video.title }}</p>
-        <p class="video-author">{{ video.author }}</p>
-        <p class="video-description">{{ video.description }}</p>
-      </div>
-    </div>
-    <div id="player">
-      <div id="placeholder"></div>
-    </div>
-    <div id="playerControls">
-      <a data-ng-click="playVid()" href="#">Play</a>
-      <a data-ng-click="playVid()" href="#">Stop</a>
-      <a data-ng-click="playVid()" href="#">Next</a>
-      <a data-ng-click="playVid()" href="#">Previous</a>
-    </div>
-    <div id="playlist">
-      <p id="current">{{ youtube.videoTitle }}</p>
-      <ol id="upcoming" data-ng-show="playlist">
-        <li data-ng-repeat="video in upcoming">
-          <div class="move-wrap"><span class="item-move" data-ng-click="move('up')">&#x25B2;</span>
-          <span class="item-move" data-ng-click="move('down')">&#x25BC;</span></div>
-          <p class="item-delete" data-ng-click="delete(upcoming, video.id)">delete</p>
-          <p class="item-title" data-ng-click="launch(video.id, video.title)">{{video.title}}</p>
 
-        </li>
-      </ol>
-      <ol id="history" data-ng-hide="playlist">
-        <li data-ng-repeat="video in history">
-          <p class="item-delete" data-ng-click="delete(history, video.id)">delete</p>
-          <p class="item-title" data-ng-click="queue(video.id, video.title)">{{video.title}}</p>
-        </li>
-      </ol>
-      <p id="tabs">
-        <a ng-class="{on:playlist}" data-ng-click="tabulate(true)">Upcoming</a>
-        <a ng-class="{on:!playlist}" data-ng-click="tabulate(false)">History</a>
-      </p>
-    </div>
-    <footer>
-       <em>Concept &amp; Design: <a href="http://jgthms.com">J. Thomas</a></em>
-      Built with <a href="http://angularjs.org/">AngularJS</a>. Source code available on <a href="https://github.com/viperfx/juketube">GitHub</a>.
-    </footer>-->
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="/js/app.js"></script>

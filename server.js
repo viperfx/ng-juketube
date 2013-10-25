@@ -10,28 +10,25 @@ app.configure(function() {
 
 var appState = {}
 io.sockets.on('connection', function(socket) {
-  socket.emit('hello', { hello: 'world' });
-  socket.on('createParty', function(data) {
-      appState[data.room] = data.state;
-      socket.join(data.room);
-      socket.emit('onPartyCreated', {'room':data.room, 'state':appState[data.room]});
-  });
+      socket.on('createParty', function(data) {
+          appState[data.room] = data.state;
+          socket.join(data.room);
+          socket.emit('onPartyCreated', {'room':data.room, 'state':appState[data.room]});
+      });
 
-  socket.on('joinParty', function(room) {
-      socket.join(room);
-      socket.broadcast.to(room).emit('onPartyJoined', room);
-  });
+      socket.on('joinParty', function(room) {
+          socket.join(room);
+          io.sockets.in(room).emit('onPartyJoined', room);
+      });
 
-  socket.on('syncState', function(data){
-      appState[data.room] = data.state;
-      //send back to all clients in room except host
-      socket.broadcast.to(data.room).emit('onSyncState', appState[data.room]);
-      // socket.emit('onSyncState', appState[data.room]);
-  });
+      socket.on('syncState', function(data){
+          appState[data.room] = data.state;
+          //send back to all clients in room except host
+          socket.broadcast.to(data.room).emit('onSyncState', appState[data.room]);
+      });
 
-  socket.on('playerAction', function(data){
-      socket.broadcast.to(data.room).emit('onPlayerAction', {'action':data.action, 'args':data.args});
-      socket.emit('onPlayerAction', {'action':data.action, 'args':data.args});
-  });
+      socket.on('playerAction', function(data){
+          io.sockets.in(data.room).emit('onPlayerAction', {'action':data.action, 'args':data.args});
+      });
 });
 server.listen(port);

@@ -32,30 +32,8 @@ module.exports = {
   },
   modifyHttpServer: function(server) {
     io = require('socket.io').listen(server);
-    // var appState = {'roomID':[upcoming, history, youtube]}
-    /*var appStateDefault =  [[
-    {id: 'kWbRdSiYgAY', title: 'Arrambam - En Fuse Pochu Official Full Song'},
-    {id: 'h1UGJ-USaf4', title: 'Arrambam - Stylish Thamizhachi Official Full Song'},
-    {id: 'mYSC8pviihY', title: 'Arrambam - Hare Rama Official Full Song'},
-    {id: '5vDn-M7FvZA', title: 'Vanakkam Chennai - Oh Penne Full Song'},
-    {id: 'LskTKRBJdJU', title: 'Hey Baby Official Full Song - Raja Rani'},
-    {id: 'OxfGcjC7aSs', title: 'Oodha Color Ribbon - Varutha Padatha Valibar sangam'}
-  ]
-                            ,[
-                                {id: 'K6A8W_SHdq8', title: 'Ethir Neechal'}
-                              ],{
-                                ready: false,
-                                videoId: null,
-                                videoTitle: null,
-                                // playerHeight: '30',
-                                playerHeight: '360',
-                                playerWidth: '640',
-                                state: 'stopped'
-                              }];*/
-    var appStateDefault = [[], [{id: 'h1UGJ-USaf4', title: 'Arrambam - Stylish Thamizhachi Official Full Song'}], { videoId: null,videoTitle: null,state:'stopped'}]
     var appState = {}
     io.sockets.on('connection', function(socket) {
-      socket.emit('hello', { hello: 'world' });
       socket.on('createParty', function(data) {
           appState[data.room] = data.state;
           socket.join(data.room);
@@ -64,19 +42,17 @@ module.exports = {
 
       socket.on('joinParty', function(room) {
           socket.join(room);
-          socket.broadcast.to(room).emit('onPartyJoined', room);
+          io.sockets.in(room).emit('onPartyJoined', room);
       });
 
       socket.on('syncState', function(data){
           appState[data.room] = data.state;
           //send back to all clients in room except host
           socket.broadcast.to(data.room).emit('onSyncState', appState[data.room]);
-          // socket.emit('onSyncState', appState[data.room]);
       });
 
       socket.on('playerAction', function(data){
-          socket.broadcast.to(data.room).emit('onPlayerAction', {'action':data.action, 'args':data.args});
-          socket.emit('onPlayerAction', {'action':data.action, 'args':data.args});
+          io.sockets.in(data.room).emit('onPlayerAction', {'action':data.action, 'args':data.args});
       });
     });
   }

@@ -1,8 +1,5 @@
 angular.module("app").controller("VideosController", function ($scope, $http, $log, VideosService, socket, $rootScope, $location, notify) {
 
-    // init();
-
-    // function init() {
 
     $scope.youtube = VideosService.getYoutube();
     $scope.results = VideosService.getResults();
@@ -24,17 +21,17 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
         $scope.connected = true;
         $rootScope.room = data.room;
         $rootScope.isHost = true;
-    //     VideosService.setState(data.state);
-    //     $scope.youtube = VideosService.getYoutube();
-    //     $scope.upcoming = VideosService.getUpcoming();
-    //     $scope.history = VideosService.getHistory();
     });
-    socket.on('onPartyJoined', function (data) {
-        console.log("new guest joined");
+    socket.on('onPartyJoined', function (room) {
+
+
         if ($rootScope.isHost) {
           //client side detection of host, should find a way to check from server side
+           console.log("new guest joined");
           $rootScope.log("I am host, sending data to guest");
           socket.emit('syncState', {'room':$rootScope.room, 'state':[$scope.upcoming, $scope.history, $scope.youtube]});
+        }else{
+          $rootScope.room = room;
         }
 
     });

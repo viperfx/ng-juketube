@@ -9,7 +9,7 @@ It is a realtime web app that lets you play music from youtube on a host compute
 ## Demo
 [ng-JukeBox on Heroku](http://ng-jukebox.herokuapp.com/)
 
-## Credit
+## Credits
 The initial work and insipiration came from @jgthms. You can see his AngularJS app [here](https://github.com/jgthms/juketube). Although my version has changed a lot both in functionality and design it is still an extension on his work.
 
 [Angular Mobile Frame](https://github.com/herschel666/angular-mobile-frame) is useful library that I have utilised. It is a set of directives for making mobile friendly apps.
