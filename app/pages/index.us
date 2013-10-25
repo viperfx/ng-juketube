@@ -23,7 +23,7 @@
     <mobile-frame>
     <mobile-header>
         <!-- top-bar-content goes here -->
-        <strong>JukeTube</strong><small>
+        <strong>JukeTube</strong><small>{{room}}</small>
 
     </mobile-header>
     <mobile-nav>

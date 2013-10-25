@@ -68,7 +68,7 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
         $scope.connected= true;
         if (room === undefined) {
             // room not specified so host a new room
-            socket.emit('createParty', {'room':'test', 'state':[$scope.upcoming, $scope.history, $scope.youtube]});
+            socket.emit('createParty', {'room':btoa(Math.random()).substr(3,4), 'state':[$scope.upcoming, $scope.history, $scope.youtube]});
         }else{
             // join the room
             socket.emit('joinParty', room);
