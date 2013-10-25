@@ -1,7 +1,8 @@
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
-    io = require('socket.io').listen(server);
+    io = require('socket.io').listen(server),
+    port = process.env.PORT || 5000;
 
 app.configure(function() {
     app.use(express.static(__dirname + '/generated'));
@@ -33,4 +34,4 @@ io.sockets.on('connection', function(socket) {
       socket.emit('onPlayerAction', {'action':data.action, 'args':data.args});
   });
 });
-server.listen(8000);
+server.listen(port);
