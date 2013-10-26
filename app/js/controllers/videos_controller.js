@@ -137,6 +137,7 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
       })
       .success( function (data) {
         VideosService.queueMix(data);
+        socket.emit('syncState', {'room':$rootScope.room, 'state':[$scope.upcoming, $scope.history, $scope.youtube]});
         $scope.mixId=false;
         $rootScope.log("Youtube Mix playlist queued up!");
       })
