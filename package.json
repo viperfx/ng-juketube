@@ -16,7 +16,8 @@
     "lineman": ">=0.11.6",
     "coffee-script": "~1.6.3",
     "express": "3.x",
-    "socket.io": "0.9.x"
+    "socket.io": "0.9.x",
+    "scrape": "0.2.3"
   },
   "scripts": {
     "postinstall": "lineman build"

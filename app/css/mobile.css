@@ -201,6 +201,25 @@ a:hover {
     color: white;
     float:left;
     }
+
+.mobile-header-inner .mix {
+    line-height: 40px;
+    font-size: 0.8em;
+    color: rgb(255, 255, 255);
+    border-radius: 0 0 6px 6px;
+    background-color: #F39C12;
+    border: none;
+    font-weight: normal;
+    line-height: 1.4;
+    border-radius: 4px;
+    padding: 5px 15px;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-transition: 0.25s linear;
+    transition: 0.25s linear;
+    position:absolute;
+    top:-3px;
+    margin-left:60px;
+}
 .mobile-footer small {
     color: #ECF0F1;
     text-transform:uppercase;

@@ -22,7 +22,11 @@
     </div>
     <mobile-frame>
     <mobile-header>
-        <strong>JukeTube</strong><small>{{room}}</small>
+        <strong>JukeTube</strong>
+
+        <small>{{room}}</small>
+        <a class="mix" ng-show="mixId" ng-click="getMix(mixId)" href="#">Mix Found</a>
+
     </mobile-header>
     <mobile-nav>
         <form id="search" class="search-form" data-ng-submit="search()">
