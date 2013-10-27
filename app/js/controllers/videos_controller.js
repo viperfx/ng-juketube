@@ -7,7 +7,16 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
     $scope.history = VideosService.getHistory();
     $scope.playlist = true;
     $scope.connected = false;
-
+    $scope.mixId = false;
+    $scope.$watch('youtube', function(newVal) {
+      if (newVal.state === 'playing') {
+        $scope.mixId = false;
+        socket.emit('checkMix', {'room':$rootScope.room, 'youtube':newVal});
+      }
+    }, true);
+    socket.on('onMixFound', function(playlistId) {
+      $scope.mixId = playlistId;
+    });
     socket.on('onSyncState', function (data) {
         VideosService.setState(data);
         $scope.youtube = VideosService.getYoutube();
@@ -23,8 +32,6 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
         $rootScope.isHost = true;
     });
     socket.on('onPartyJoined', function (room) {
-
-
         if ($rootScope.isHost) {
           //client side detection of host, should find a way to check from server side
            console.log("new guest joined");
@@ -117,7 +124,27 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
         $rootScope.log('Search error');
       });
     };
-
+    $scope.getMix = function(playlistId) {
+      $http.get('https://www.googleapis.com/youtube/v3/playlistItems', {
+        params: {
+          key: 'AIzaSyB0Rdzmn2haPKG3YMEqFpPiYI1NrdLllx0',
+          type: 'video',
+          maxResults: '50',
+          playlistId: playlistId,
+          part: 'id,snippet',
+          fields: 'items/snippet/resourceId/videoId,items/snippet/title,items/snippet/description,items/snippet/thumbnails/default,items/snippet/channelTitle',
+        }
+      })
+      .success( function (data) {
+        VideosService.queueMix(data);
+        socket.emit('syncState', {'room':$rootScope.room, 'state':[$scope.upcoming, $scope.history, $scope.youtube]});
+        $scope.mixId=false;
+        $rootScope.log("Youtube Mix playlist queued up!");
+      })
+      .error( function () {
+        $rootScope.log('Search error');
+      });
+    };
     $scope.tabulate = function (state) {
       $scope.playlist = state;
     };

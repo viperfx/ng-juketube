@@ -32,6 +32,7 @@ module.exports = {
   },
   modifyHttpServer: function(server) {
     io = require('socket.io').listen(server);
+    scrape = require('scrape');
     var appState = {}
     io.sockets.on('connection', function(socket) {
       socket.on('createParty', function(data) {
@@ -53,6 +54,19 @@ module.exports = {
 
       socket.on('playerAction', function(data){
           io.sockets.in(data.room).emit('onPlayerAction', {'action':data.action, 'args':data.args});
+      });
+
+      socket.on('checkMix', function(data) {
+          scrape.request('http://youtube.com/watch?v='+data.youtube.videoId, function (err, $) {
+              if (err) return console.error(err);
+
+              $('.related-playlist a').each(function (el) {
+                  title = el.find('span.title').first();
+                  if (title.text.search('YouTube Mix') === 0) {
+                    socket.emit('onMixFound', el.attribs.href.split('list=')[1]);
+                  }
+              });
+          });
       });
     });
   }

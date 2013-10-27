@@ -8,7 +8,7 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
   var ready = false;
   var youtube = {
     videoId: null,
-    videoTitle: "test",
+    videoTitle: null,
     state: 'stopped'
   };
   var results = [];
@@ -22,6 +22,7 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
     {id: 'sEwM6ERq0gc', title: 'HAIM - Forever (Official Music Video)'},
     {id: 'fTK4XTvZWmk', title: 'Housse De Racket ☁☀☁ Apocalypso'}
   ];
+
   // var upcoming = [];
   var history = [
     {id: 'XKa7Ywiv734', title: '[OFFICIAL HD] Daft Punk - Give Life Back To Music (feat. Nile Rodgers)'}
@@ -120,6 +121,18 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
     }
     return results;
   };
+
+  this.queueMix = function (data) {
+    upcoming.length = 0;
+    for (var i =  1; i < data.items.length-1; i++) {
+      upcoming.push({
+        id: data.items[i].snippet.resourceId.videoId,
+        title: data.items[i].snippet.title,
+      });
+    }
+    return upcoming;
+  };
+
 
   this.queueVideo = function (id, title) {
     upcoming.push({
