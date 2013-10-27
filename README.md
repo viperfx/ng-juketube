@@ -12,6 +12,9 @@ It is a realtime web app that lets you play music from youtube on a host compute
 - Mobile first responsive design.
 - YouTube Mix support. The mix can be queued up if found for a song. Great for finding related music easily.
 
+## Screenshots
+![JukeBox](http://cl.ly/image/1a1b1g0X3O28/productshot-ngjukebox.png)
+
 ## Demo
 [ng-JukeBox on Heroku](http://ng-jukebox.herokuapp.com/)
 
