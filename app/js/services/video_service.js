@@ -50,6 +50,7 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
   function onYoutubeStateChange (event) {
     if (event.data === YT.PlayerState.PLAYING) {
       youtube.state = 'playing';
+      socket.emit('syncState', {'room':$rootScope.room, 'state':[upcoming,history, youtube]});
     } else if (event.data === YT.PlayerState.PAUSED) {
       youtube.state = 'paused';
     } else if (event.data === YT.PlayerState.ENDED) {
@@ -63,7 +64,6 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
       service.launchPlayer(upcoming[0].id, upcoming[0].title);
       service.archiveVideo(upcoming[0].id, upcoming[0].title);
       service.deleteVideo(upcoming, upcoming[0].id);
-      socket.emit('syncState', {'room':$rootScope.room, 'state':[upcoming, history, youtube]});
   };
 
   // this.previousVideo = function() {

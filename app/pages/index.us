@@ -51,9 +51,9 @@
       <small class="playerControls">
         <div class="main">
           <!-- <div class="previous" data-ng-click="playerControl('previous')"></div> -->
-          <div class="play" data-ng-click="playerControl('play')" ng-show="youtube.state=='stopped' || youtube.state=='paused' || youtube.state=='ended'"></div>
-          <div class="pause" data-ng-click="playerControl('pause')" ng-show="youtube.state=='playing'"></div>
-          <div class="next" data-ng-click="playerControl('next')"></div>
+          <div class="play icon-play" data-ng-click="playerControl('play')" ng-show="youtube.state=='stopped' || youtube.state=='paused' || youtube.state=='ended'"></div>
+          <div class="pause icon-pause" data-ng-click="playerControl('pause')" ng-show="youtube.state=='playing'"></div>
+          <div class="next icon-forward" data-ng-click="playerControl('next')"></div>
         </div>
       </small>
     </mobile-footer>

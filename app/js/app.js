@@ -15,7 +15,7 @@ angular.module("app", ["ek.mobileFrame", "cgNotify"]).run(function($rootScope, n
 }).config( ['$mobileFrameProvider', '$httpProvider', function ($mobileFrameProvider,$httpProvider) {
   $mobileFrameProvider
             .setHeaderHeight(50)
-            .setFooterHeight(30)
+            .setFooterHeight(50)
             .setNavWidth(250);
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
 }]);

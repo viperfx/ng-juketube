@@ -67,6 +67,7 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
         } else if (data.action === 'move') {
           $scope.upcoming.splice(data.args[1], 0, $scope.upcoming.splice(data.args[0], 1)[0]);
         }
+
     });
     $scope.connect = function(room) {
         $scope.connected= true;
@@ -89,7 +90,6 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
       VideosService.archiveVideo(id, title);
       VideosService.deleteVideo($scope.upcoming, id);
       socket.emit('playerAction', {'room':$rootScope.room, 'action':'launch', 'args':[id,title]});
-      socket.emit('syncState', {'room':$rootScope.room, 'state':[$scope.upcoming, $scope.history, $scope.youtube]});
       $rootScope.log('Launched id:' + id + ' and title:' + title);
     };
 
