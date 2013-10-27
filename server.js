@@ -2,7 +2,8 @@ var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
-    port = process.env.PORT || 5000;
+    port = process.env.PORT || 5000,
+    scrape = require('scrape');
 
 app.configure(function() {
     app.use(express.static(__dirname + '/generated'));
