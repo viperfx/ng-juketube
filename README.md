@@ -1,4 +1,5 @@
-# ng-JukeBox - A Youtube Powered JukeBox built with AngularJS, nodejs and Socket.IO
+# ng-JukeBox
+A Youtube Powered JukeBox built with AngularJS, nodejs and Socket.IO
 
 ## What is it?
 It is a realtime web app that lets you play music from youtube on a host computer (a client that creates a room) and the features of the app such as adding to the playlist, rearranging the playlist, music controls such as play/pause and next are all controllable through guests (a client that joins a room). All the UI and data is updated in realtime for all clients connected their respective rooms thanks to WebSockets and SocketIO.
@@ -8,6 +9,7 @@ It is a realtime web app that lets you play music from youtube on a host compute
 - Automatic play (as soon as the current video ends)
 - Rooms/Channels support. Host can create a room, and guests can join using a chosen key or random 4 character assigned.
 - Host and Guests are kept in sync in realtime.
+- Mobile first responsive design.
 - YouTube Mix support. The mix can be queued up if found for a song. Great for finding related music easily.
 
 ## Screenshots
