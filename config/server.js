@@ -32,6 +32,7 @@ module.exports = {
   },
   modifyHttpServer: function(server) {
     io = require('socket.io').listen(server);
+    io.set('log level', 2)
     scrape = require('scrape');
     var appState = {}
     io.sockets.on('connection', function(socket) {
@@ -63,7 +64,9 @@ module.exports = {
               $('.related-playlist a').each(function (el) {
                   title = el.find('span.title').first();
                   if (title.text.search('YouTube Mix') === 0) {
-                    socket.emit('onMixFound', el.attribs.href.split('list=')[1]);
+                    io.sockets.in(data.room).emit('onMixFound', el.attribs.href.split('list=')[1]);
+                  }else{
+                    console.log(title.text);
                   }
               });
           });

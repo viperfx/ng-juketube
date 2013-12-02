@@ -2,8 +2,8 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
 
   var service = this;
   $rootScope.YTplayer = null;
-  var playerHeight = '30';
-  // playerHeight: '360',
+  // var playerHeight = '30';
+  var playerHeight =  '360';
   var playerWidth = '640';
   var ready = false;
   var youtube = {
@@ -45,12 +45,12 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
     $rootScope.YTplayer.cueVideoById(history[0].id);
     youtube.videoId = history[0].id;
     youtube.videoTitle = history[0].title;
+    $rootScope.$apply();
   }
 
   function onYoutubeStateChange (event) {
     if (event.data === YT.PlayerState.PLAYING) {
       youtube.state = 'playing';
-      socket.emit('syncState', {'room':$rootScope.room, 'state':[upcoming,history, youtube]});
     } else if (event.data === YT.PlayerState.PAUSED) {
       youtube.state = 'paused';
     } else if (event.data === YT.PlayerState.ENDED) {
@@ -64,6 +64,7 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
       service.launchPlayer(upcoming[0].id, upcoming[0].title);
       service.archiveVideo(upcoming[0].id, upcoming[0].title);
       service.deleteVideo(upcoming, upcoming[0].id);
+      // socket.emit('syncState', {'room':$rootScope.room, 'state':[upcoming,history, youtube]});
   };
 
   // this.previousVideo = function() {
@@ -81,7 +82,6 @@ angular.module("app").service("VideosService", ['$window', '$rootScope', '$log',
       playerVars: {
         rel: 0,
         showinfo: 0,
-        autohide: 0
       },
       events: {
         'onReady': onYoutubeReady,

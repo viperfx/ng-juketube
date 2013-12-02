@@ -8,6 +8,7 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
     $scope.playlist = true;
     $scope.connected = false;
     $scope.mixId = false;
+    $scope.showPlayer = false;
     $scope.$watch('youtube', function(newVal) {
       if (newVal.state === 'playing') {
         $scope.mixId = false;
@@ -69,6 +70,9 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
         }
 
     });
+    $scope.togglePlayer = function() {
+        $scope.showPlayer = !$scope.showPlayer
+    };
     $scope.connect = function(room) {
         $scope.connected= true;
         if (room === undefined) {

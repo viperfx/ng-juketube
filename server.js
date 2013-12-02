@@ -2,7 +2,7 @@ var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
-    port = process.env.PORT || 5000,
+    port = process.env.PORT || 8000,
     scrape = require('scrape');
 
 app.configure(function() {
@@ -40,6 +40,8 @@ io.sockets.on('connection', function(socket) {
                   title = el.find('span.title').first();
                   if (title.text.search('YouTube Mix') === 0) {
                     socket.emit('onMixFound', el.attribs.href.split('list=')[1]);
+                  }else{
+                    console.log(title.text);
                   }
               });
           });

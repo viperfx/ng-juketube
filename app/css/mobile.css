@@ -16,7 +16,13 @@
 /*html{ }*/
 body, input{ font: 20px/1 'Gotham Book', Arial, sans-serif;}
 ol, ul{ list-style: none;}
-#player{ background: black; display:none;}
+#player-wrapper {
+    background: black;
+    position: absolute;
+    top: 25%;
+    z-index: 1000;
+    left: 25%;
+}
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td{ font-style: normal; font-weight: normal; margin: 0; padding: 0;}
 .connect-modal {
     display: block; /* ensures it’s invisible until it’s called */

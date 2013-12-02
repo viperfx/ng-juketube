@@ -6,7 +6,7 @@
     <link rel="stylesheet" type="text/css" href="/css/mobile.css" media="all" />
   </head>
   <body data-ng-controller="VideosController" ng-init="youtube.videoTitle='Loading &hellip;'">
-    <div id="player">
+    <div id="player-wrapper" data-ng-show="showPlayer">
       <div id="placeholder"></div>
     </div>
     <div class="fade" data-ng-hide="connected"></div>
@@ -22,7 +22,7 @@
     </div>
     <mobile-frame>
     <mobile-header>
-        <strong>JukeTube</strong>
+        <strong data-ng-click="togglePlayer()">JukeTube</strong>
 
         <small>{{room}}</small>
         <a class="mix" ng-show="mixId" ng-click="getMix(mixId)" href="#">Mix Found</a>
