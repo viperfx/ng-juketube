@@ -59,7 +59,7 @@ module.exports = {
 
       socket.on('checkMix', function(data) {
         // curl 'http://www.youtube.com/watch?v=WJJ5d9qbfFk' -H 'Accept-Encoding: gzip,deflate,sdch' -H 'Host: www.youtube.com' -H 'Accept-Language: en-US,en;q=0.8' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8' -H 'Referer: http://www.youtube.com/results?search_query=irandam+ulagam&sm=3' -H 'Cookie: YSC=ndRc_70goac; VISITOR_INFO1_LIVE=SUjKHIedMZk; PREF=f1=50000000&fv=11.9.900; ACTIVITY=1386013363860' -H 'Connection: keep-alive' -H 'Cache-Control: max-age=0' --compressed
-          scrape.request({url:'http://youtube.com/watch?v='+data.youtube.videoId, useragent:'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36'}, function (err, $) {
+          scrape.request({url:'http://youtube.com/watch?v='+data.youtube.videoId}, function (err, $) {
               if (err) return console.error(err);
 
               $('.related-playlist a').each(function (el) {

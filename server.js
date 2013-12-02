@@ -48,3 +48,15 @@ io.sockets.on('connection', function(socket) {
       });
 });
 server.listen(port);
+// require('node.io').scrape(function(){
+//   this.getHtml('http://youtube.com/watch?v=WJJ5d9qbfFk', function (err, $) {
+//     $('.related-playlist a').each(function (el) {
+//         title = el.find('span.title').first();
+//         if (title.text.search('YouTube Mix') === 0) {
+//           console.log('onMixFound' + el.attribs.href.split('list=')[1]);
+//         }else{
+//           console.log(title.text);
+//         }
+//     });
+//   });
+// });
