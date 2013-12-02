@@ -33,7 +33,7 @@ io.sockets.on('connection', function(socket) {
       });
 
       socket.on('checkMix', function(data) {
-          scrape.request({url:'http://youtube.com/watch?v='+data.youtube.videoId, useragent:'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36'}, function (err, $) {
+          scrape.request({url:'http://youtube.com/watch?v='+data.youtube.videoId}, function (err, $) {
               if (err) return console.error(err);
 
               $('.related-playlist a').each(function (el) {
@@ -48,15 +48,3 @@ io.sockets.on('connection', function(socket) {
       });
 });
 server.listen(port);
-// require('node.io').scrape(function(){
-//   this.getHtml('http://youtube.com/watch?v=WJJ5d9qbfFk', function (err, $) {
-//     $('.related-playlist a').each(function (el) {
-//         title = el.find('span.title').first();
-//         if (title.text.search('YouTube Mix') === 0) {
-//           console.log('onMixFound' + el.attribs.href.split('list=')[1]);
-//         }else{
-//           console.log(title.text);
-//         }
-//     });
-//   });
-// });
