@@ -33,7 +33,7 @@ io.sockets.on('connection', function(socket) {
       });
 
       socket.on('checkMix', function(data) {
-          scrape.request('http://youtube.com/watch?v='+data.youtube.videoId, function (err, $) {
+          scrape.request({url:'http://youtube.com/watch?v='+data.youtube.videoId, useragent:'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36'}, function (err, $) {
               if (err) return console.error(err);
 
               $('.related-playlist a').each(function (el) {
