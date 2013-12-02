@@ -71,7 +71,7 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
 
     });
     $scope.togglePlayer = function() {
-        $scope.showPlayer = !$scope.showPlayer
+        $scope.showPlayer = !$scope.showPlayer;
     };
     $scope.connect = function(room) {
         $scope.connected= true;
