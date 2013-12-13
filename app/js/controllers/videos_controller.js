@@ -9,15 +9,24 @@ angular.module("app").controller("VideosController", function ($scope, $http, $l
     $scope.connected = false;
     $scope.mixId = false;
     $scope.showPlayer = false;
-    $scope.$watch('youtube', function(newVal) {
+    $scope.$watch('youtube', function(newVal, oldVal) {
       if (newVal.state === 'playing') {
-        $scope.mixId = false;
-        socket.emit('checkMix', {'room':$rootScope.room, 'youtube':newVal});
-      }
+        if (newVal.videoId === oldVal.videoId && $scope.mixId === false) {
+            $scope.mixId = false;
+            $.get('http://www.corsproxy.com/www.youtube.com/watch?v='+newVal.videoId,function(response) {
+              var doc = new DOMParser().parseFromString(response, 'text/html');
+              $scope.mixId = doc.querySelector('.related-playlist').getAttribute('href').split('list=')[1];
+              console.log($scope.mixId);
+              $scope.$apply();
+            });
+        }else{
+            $scope.mixId = false;
+        }
+
+        // socket.emit('checkMix', {'room':$rootScope.room, 'youtube':newVal});
+
+        }
     }, true);
-    socket.on('onMixFound', function(playlistId) {
-      $scope.mixId = playlistId;
-    });
     socket.on('onSyncState', function (data) {
         VideosService.setState(data);
         $scope.youtube = VideosService.getYoutube();

@@ -2,7 +2,7 @@ var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
     io = require('socket.io').listen(server),
-    port = process.env.PORT || 8000,
+    port = process.env.PORT || 8181,
     scrape = require('scrape');
 
 app.configure(function() {
@@ -32,19 +32,5 @@ io.sockets.on('connection', function(socket) {
           io.sockets.in(data.room).emit('onPlayerAction', {'action':data.action, 'args':data.args});
       });
 
-      socket.on('checkMix', function(data) {
-          scrape.request({url:'http://youtube.com/watch?v='+data.youtube.videoId}, function (err, $) {
-              if (err) return console.error(err);
-
-              $('.related-playlist a').each(function (el) {
-                  title = el.find('span.title').first();
-                  if (title.text.search('YouTube Mix') === 0) {
-                    socket.emit('onMixFound', el.attribs.href.split('list=')[1]);
-                  }else{
-                    console.log(title.text);
-                  }
-              });
-          });
-      });
 });
 server.listen(port);
